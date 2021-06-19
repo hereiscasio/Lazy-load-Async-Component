@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "core-js": "^3.9.1",
-    "nuxt": "^2.15.3"
+    "nuxt": "^2.15.3",
+    "vue-lazy-hydration": "^2.0.0-beta.4"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.3"
