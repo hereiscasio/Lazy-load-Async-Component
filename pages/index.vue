@@ -60,6 +60,31 @@
           >
             Nuxt GitHub
           </a>
+
+
+  <v-responsive
+    class="overflow-y-auto"
+    max-height="400"
+  >
+  <div class="pt-10"> Scroll RIGHT HERE！！！！ </div>
+
+    <v-responsive
+      height="200vh"
+      class="text-center pa-2"
+    >
+      <v-responsive min-height="50vh"></v-responsive>
+
+        <v-sheet v-intersect="onIntersect">
+          <LazyHydrate :trigger-hydration="isIntersecting" >
+            <chip-async v-if="isIntersecting"></chip-async>
+          </LazyHydrate>
+        </v-sheet>
+
+
+    </v-responsive>
+  </v-responsive>
+
+
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -77,13 +102,26 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import LazyHydrate from 'vue-lazy-hydration';
 
 export default {
+  data: () => {
+    // console.log('data: process.client = ', process.client)
+    return {
+      isIntersecting: process.client ? false : true
+    }
+  },
+  methods: {
+      onIntersect (entries, observer) {
+        // More information about these options
+        // is located here: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+        this.isIntersecting = entries[0].isIntersecting
+      },
+  },
   components: {
-    Logo,
-    VuetifyLogo
+    LazyHydrate,
+    'chip-async': () => import('~/components/chip-async/index.vue')
   }
 }
 </script>
+
